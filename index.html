@@ -344,7 +344,9 @@ if (SpeechRecognition) {
 
     sendMessage();
   };
-
+recognition.onerror = function(event) {
+    alert("Mikrofon hatası: " + event.error);
+};
 } else {
 
   micButton.onclick = function() {
