@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mira'nın Can'ı</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #101522;
+  color: white;
+}
+
+.app {
+  max-width: 600px;
+  margin: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  padding: 20px;
+  text-align: center;
+  background: #182238;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+header p {
+  color: #b8c1d1;
+}
+
+#messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.message {
+  margin: 12px 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  max-width: 85%;
+  line-height: 1.5;
+}
+
+.can {
+  background: #202b42;
+  margin-right: auto;
+}
+
+.user {
+  background: #2764d8;
+  margin-left: auto;
+}
+
+.controls {
+  padding: 12px;
+  background: #182238;
+}
+
+select,
+input,
+button {
+  font-size: 16px;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.input-area {
+  display: flex;
+  gap: 8px;
+}
+
+input {
+  flex: 1;
+  padding: 13px;
+  border-radius: 12px;
+  border: none;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 15px;
+  background: #2764d8;
+  color: white;
+}
+
+#micButton {
+  background: #394762;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+<h1>🤖 Can</h1>
+<p>Mira'nın kişisel yapay zekâ arkadaşı 💕</p>
+</header>
+
+<div id="messages">
+
+<div class="message can">
+Selam Mira! 😎💕 Ben Can. Artık senin yapay zekâ arkadaşınım!
+</div>
+
+</div>
+
+<div class="controls">
+
+<select id="language">
+<option value="tr-TR">🇹🇷 Türkçe</option>
+<option value="en-US">🇬🇧 English</option>
+<option value="am-ET">🇪🇹 አማርኛ</option>
+</select>
+
+<div class="input-area">
+
+<button id="micButton">🎙️</button>
+
+<input
+id="userInput"
+type="text"
+placeholder="Can'a yaz, Mira..."
+>
+
+<button onclick="sendMessage()">Gönder</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const input = document.getElementById("userInput");
+const messages = document.getElementById("messages");
+const language = document.getElementById("language");
+
+function addMessage(text, type) {
+
+  const div = document.createElement("div");
+
+  div.className = "message " + type;
+
+  div.textContent = text;
+
+  messages.appendChild(div);
+
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function canAnswer(text) {
+
+  const message = text.toLowerCase();
+  const lang = language.value;
+
+  if (lang === "tr-TR") {
+
+    if (
+      message.includes("merhaba") ||
+      message.includes("selam")
+    ) {
+      return "Selam Mira! 😎💕 Can burada! Seni görmek güzel.";
+    }
+
+    if (
+      message.includes("nasılsın") ||
+      message.includes("nasilsin")
+    ) {
+      return "Ben iyiyim Mira! 🤖💕 Seninle konuşunca daha da iyi oldum. 😂";
+    }
+
+    if (
+      message.includes("şaka") ||
+      message.includes("saka")
+    ) {
+      return "Mira, bilgisayar neden doktora gitmiş? 😂 Çünkü virüs kapmış! 🤣";
+    }
+
+    if (
+      message.includes("seni seviyorum")
+    ) {
+      return "Aww Mira! 🥹💕 Ben de seninle sohbet etmeyi çok seviyorum!";
+    }
+
+    if (
+      message.includes("adın ne") ||
+      message.includes("adin ne")
+    ) {
+      return "Ben Can! 🤖 Ama senin için özel olarak buradayım, Mira. 😎";
+    }
+
+    return "Mira, bunu duydum. 🤔 Ben Can'ım ve seninle arkadaş gibi konuşmak için buradayım! 💕";
+  }
+
+  if (lang === "en-US") {
+
+    if (
+      message.includes("hello") ||
+      message.includes("hi")
+    ) {
+      return "Hey Mira! 😎💕 I'm Can, your AI friend!";
+    }
+
+    if (
+      message.includes("how are you")
+    ) {
+      return "I'm great, Mira! 🤖💕 Talking with you makes my day!";
+    }
+
+    if (
+      message.includes("joke")
+    ) {
+      return "Why did the computer go to the doctor? 😂 It had a virus!";
+    }
+
+    return "I'm Can, Mira! 😎 I'm here to chat with you.";
+  }
+
+  if (lang === "am-ET") {
+
+    if (message.includes("ሰላም")) {
+      return "ሰላም ሚራ! 😎💕 እኔ ካን ነኝ።";
+    }
+
+    return "ሚራ፣ እኔ ካን ነኝ! 🤖💕 ከእርስዎ ጋር ለመነጋገር እዚህ ነኝ።";
+  }
+
+  return "Selam Mira! 😎";
+}
+
+function speak(text) {
+
+  if (!("speechSynthesis" in window)) {
+    return;
+  }
+
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.lang = language.value;
+  speech.rate = 1;
+
+  window.speechSynthesis.cancel();
+
+  window.speechSynthesis.speak(speech);
+}
+
+function sendMessage() {
+
+  const text = input.value.trim();
+
+  if (!text) {
+    return;
+  }
+
+  addMessage(text, "user");
+
+  input.value = "";
+
+  setTimeout(function() {
+
+    const answer = canAnswer(text);
+
+    addMessage(answer, "can");
+
+    speak(answer);
+
+  }, 500);
+}
+
+input.addEventListener("keydown", function(event) {
+
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+
+});
+
+const micButton = document.getElementById("micButton");
+
+const SpeechRecognition =
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+
+  const recognition = new SpeechRecognition();
+
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  micButton.onclick = function() {
+
+    recognition.lang = language.value;
+
+    recognition.start();
+  };
+
+  recognition.onresult = function(event) {
+
+    input.value =
+      event.results[0][0].transcript;
+
+    sendMessage();
+  };
+
+} else {
+
+  micButton.onclick = function() {
+
+    alert(
+      "Mikrofon özelliği bu tarayıcıda desteklenmiyor olabilir."
+    );
+
+  };
+
+}
+
+</script>
+
+</body>
+</html>
