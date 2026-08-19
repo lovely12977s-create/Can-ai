@@ -250,9 +250,7 @@ function canAnswer(text) {
 
   return "Selam Mira! 😎";
 }
-
 function speak(text) {
-
   if (!("speechSynthesis" in window)) {
     return;
   }
@@ -260,12 +258,33 @@ function speak(text) {
   const speech = new SpeechSynthesisUtterance(text);
 
   speech.lang = language.value;
-  speech.rate = 1;
+  speech.rate = 0.95;
+  speech.pitch = 0.85;
+  speech.volume = 1;
+
+  const voices = window.speechSynthesis.getVoices();
+
+  const maleVoice = voices.find(v =>
+    v.lang.toLowerCase().startsWith("tr") &&
+    /male|erkek|ahmet|ali|mehmet|cem|emre|murat/i.test(v.name)
+  );
+
+  if (maleVoice) {
+    speech.voice = maleVoice;
+  } else {
+    const turkishVoice = voices.find(v =>
+      v.lang.toLowerCase().startsWith("tr")
+    );
+
+    if (turkishVoice) {
+      speech.voice = turkishVoice;
+    }
+  }
 
   window.speechSynthesis.cancel();
-
   window.speechSynthesis.speak(speech);
 }
+
 
 function sendMessage() {
 
